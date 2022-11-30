@@ -1,0 +1,1 @@
+"""DELETE.PY: Select resource by code and delete it from system"""
