@@ -6,7 +6,7 @@ inv=open("inventory.csv","r")
 line="-----*-----"
 breakLine=("-----*"*2)+"-----"
 
-def run():
+def run(isManager):
     loop=True   #variable that makes loop continue
     while(loop):
         print("WELCOME TO THE FRIDGE - INVENTORY MENU:\n READ[R] || EDIT[E] || CREATE[C] || DELETE[DEL] || EXIT[EXIT]")
@@ -19,25 +19,30 @@ def run():
             if(user=="R"):
                 print("read")
 
-            #menu choice - EDIT
-            elif(user=="E"):
-                print("edit")
-
-            #menu choice - Create
-            elif(user=="C"):
-                print("create")
-
-            #menu choice - Delete
-            elif(user=="DEL"):
-                print("delete")
-
             #menu choice - leave menu
             elif(user=="EXIT"):
                 loop=False #leaves loop, exits menu
 
+            #specific for manager role - if password or not
+            elif(user=="E" or user=="C" or user=="DEL"):
+                if (isManager):
+                    #menu choice - EDIT
+                    if(user=="E" and isManager):
+                        print("edit")
+
+                    #menu choice - Create
+                    elif(user=="C" and isManager):
+                        print("create")
+
+                    #menu choice - Delete
+                    elif(user=="DEL" and isManager):
+                        print("delete")
+                else:
+                    print("You do not have authorization")
+
             #menu choice - invalid if option not on menu
             else:
-                print("Invalid Input - Please select a real option")
+                print("Invalid Input - Please select a valid option")
 
     
         #except and finally block for menu
@@ -57,7 +62,7 @@ else:
     certified=False #if certified to change or not
     print("this is the outside look")
 
-run()
+run(certified)
 
 
 print("Thank you! **PLEASE WASH HANDS 2.5 TIMES BEFORE LEAVING**")
