@@ -1,4 +1,9 @@
 """APPLICATION.PY: access point of other classes"""
+#importing modules to create, read,edit and delete information in inventory.csv
+import create,read,edit,delete
+
+
+#opening inventory.csv
 inv=open("inventory.csv","r")
 #inv=open("inventory.txt","a")
 #read=inv.split(",")
@@ -51,8 +56,8 @@ def run(isManager):
         finally:
             print(line)
 
-#weird as heck fridge
-#Item,Specimen Name,Edible,Retail Price,Date(Month Day Year)
+#THEME: weird as heck fridge, kinda omnious but quirky
+#Item,Specimen Name(FIRST THREE LETTERS OF IT-RANDOM NUM),Edible,Retail Price,Scientist Name(i.e. Aud,Harrison,Mario,dr.Ken,)
 verify=input("Password: ")
 if(verify=="aa"):
     certified=True #if certified to change or not
@@ -64,6 +69,7 @@ else:
 
 run(certified)
 
-
-print("Thank you! **PLEASE WASH HANDS 2.5 TIMES BEFORE LEAVING**")
+#ending print statement
+print(breakLine+"\nThank you! **PLEASE WASH HANDS 2.5 TIMES BEFORE LEAVING**")
+#closing inventory.csv
 inv.close()

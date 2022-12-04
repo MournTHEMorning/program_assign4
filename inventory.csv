@@ -1,4 +1,4 @@
-Item,Specimen Name,Edible,Retail Price,Owner
+Item,Specimen-Name,Edible,Retail-Price,Scientist-Name
 Orange,ORA-123,True,3.45,Aud
 Moss,MOS-346,False,123.26,Aud
 "Charlie",CHA-731,True,92.6,Aud
