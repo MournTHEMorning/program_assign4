@@ -2,16 +2,21 @@
 #importing modules to create, read,edit and delete information in inventory.csv
 import create,read,edit,delete
 
+#making objects to reference respective classes
+createAccess=create.Create()
+# readAccess=read
+# editAccess=edit
+# deleteAccess=delete
 
 #opening inventory.csv
-inv=open("inventory.csv","r")
-#inv=open("inventory.txt","a")
+invRead=open("inventory.csv","r")
+invAppend=open("inventory.csv","a")
 #read=inv.split(",")
 
 line="-----*-----"
 breakLine=("-----*"*2)+"-----"
 
-def run(isManager):
+def run(isManager,username):
     loop=True   #variable that makes loop continue
     while(loop):
         print("WELCOME TO THE FRIDGE - INVENTORY MENU:\n READ[R] || EDIT[E] || CREATE[C] || DELETE[DEL] || EXIT[EXIT]")
@@ -38,6 +43,43 @@ def run(isManager):
                     #menu choice - Create
                     elif(user=="C" and isManager):
                         print("create")
+                        item_name=input("What is the item's common name?: ").capitalize()
+                        specimen_num=input("Input 3 digit code for specimen name: ")
+                        while(len(specimen_num)!=3):
+                            print("Your specimen code is not 3 digits.\n"+line)
+                            specimen_num=input("Input 3 digit code for specimen name: ")
+
+                        
+                        edible=input("Is the item edible? (True or False): ").capitalize()
+                        #checks if edible is True or False in boolean terms
+                        edible_NotVerify=True
+                        while(edible_NotVerify):
+                            if(edible=="True" or edible=="False"):
+                                edible=bool(edible)
+                                edible_NotVerify=False
+                            else:
+                                print("You did not correctly state edible status.\n"+line)
+                                edible=input("Is the item edible? (True or False): ").capitalize()
+
+
+                        price=float(input("What is the retail price of item? (i.e. 3.14, no special characters): "))
+                        
+                        #makes specimen name
+                        #if you CAN take the first 3 charas of name
+                        if(len(item_name)>=3):
+                            speci_chara=item_name[:3]
+
+                        #if you cannot
+                        else:
+                            speci_chara=item_name
+                            while(len(speci_chara)!=3):
+                                speci_chara=speci_chara+"O"
+
+                        specimen=(speci_chara.upper()+"-"+str(specimen_num))        
+
+
+                        #adding to Inventory
+                        createAccess.add(item_name,specimen,edible,price,username)
 
                     #menu choice - Delete
                     elif(user=="DEL" and isManager):
@@ -51,25 +93,27 @@ def run(isManager):
 
     
         #except and finally block for menu
-        except:
-            print("Some error occured.")
+        except Exception as e:
+            print("Some error occured: ",e)
         finally:
-            print(line)
+            print(breakLine)
 
 #THEME: weird as heck fridge, kinda omnious but quirky
-#Item,Specimen Name(FIRST THREE LETTERS OF IT-RANDOM NUM),Edible,Retail Price,Scientist Name(i.e. Aud,Harrison,Mario,dr.Ken,)
+#Item,Specimen Name(FIRST THREE LETTERS OF IT-RANDOM NUM),Edible,Retail Price,Scientist Name(i.e. Aud,Harrison,Mario,dr.Ken,bob)
 verify=input("Password: ")
 if(verify=="aa"):
-    certified=True #if certified to change or not
-    print("cool")
-
+    name=input("Correct. What is your name?: ").capitalize()
+    print("You have recieved ADMIN access. Reminder to put on 20.3 masks in Style 10.\n"+line)
+    certified=True #if certified to have admin access or not
 else:
-    certified=False #if certified to change or not
-    print("this is the outside look")
+    certified=False 
+    name=""
 
-run(certified)
+print("**REMINDER: Please put on your gloves before proceeding**\n"+breakLine)
+run(certified,name)
 
 #ending print statement
-print(breakLine+"\nThank you! **PLEASE WASH HANDS 2.5 TIMES BEFORE LEAVING**")
+print(breakLine+"\nThank you! **REMOVE GLOVES & PLEASE WASH HANDS 2.5 TIMES BEFORE LEAVING**")
 #closing inventory.csv
-inv.close()
+invRead.close()
+invAppend.close()
