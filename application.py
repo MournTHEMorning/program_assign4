@@ -13,6 +13,7 @@ invRead=open("inventory.csv","r")
 invAppend=open("inventory.csv","a")
 #read=inv.split(",")
 
+#variables for readability
 line="-----*-----"
 breakLine=("-----*"*2)+"-----"
 
@@ -42,14 +43,14 @@ def run(isManager,username):
 
                     #menu choice - Create
                     elif(user=="C" and isManager):
-                        print("create")
+                        #getting values from users                        
                         item_name=input("What is the item's common name?: ").capitalize()
                         specimen_num=input("Input 3 digit code for specimen name: ")
+                        #checking the length of the code. It should be 3 digits
                         while(len(specimen_num)!=3):
                             print("Your specimen code is not 3 digits.\n"+line)
                             specimen_num=input("Input 3 digit code for specimen name: ")
 
-                        
                         edible=input("Is the item edible? (True or False): ").capitalize()
                         #checks if edible is True or False in boolean terms
                         edible_NotVerify=True
@@ -61,10 +62,9 @@ def run(isManager,username):
                                 print("You did not correctly state edible status.\n"+line)
                                 edible=input("Is the item edible? (True or False): ").capitalize()
 
-
                         price=float(input("What is the retail price of item? (i.e. 3.14, no special characters): "))
                         
-                        #makes specimen name
+                        #makes specimen code name
                         #if you CAN take the first 3 charas of name
                         if(len(item_name)>=3):
                             speci_chara=item_name[:3]
@@ -74,9 +74,8 @@ def run(isManager,username):
                             speci_chara=item_name
                             while(len(speci_chara)!=3):
                                 speci_chara=speci_chara+"O"
-
+                        #specimen code created
                         specimen=(speci_chara.upper()+"-"+str(specimen_num))        
-
 
                         #adding to Inventory
                         createAccess.add(item_name,specimen,edible,price,username)
@@ -87,33 +86,36 @@ def run(isManager,username):
                 else:
                     print("You do not have authorization")
 
-            #menu choice - invalid if option not on menu
+            #menu choice - invalid input, if the option is not on menu
             else:
                 print("Invalid Input - Please select a valid option")
 
-    
         #except and finally block for menu
         except Exception as e:
             print("Some error occured: ",e)
         finally:
             print(breakLine)
 
+
+
 #THEME: weird as heck fridge, kinda omnious but quirky
 #Item,Specimen Name(FIRST THREE LETTERS OF IT-RANDOM NUM),Edible,Retail Price,Scientist Name(i.e. Aud,Harrison,Mario,dr.Ken,bob)
 verify=input("Password: ")
-if(verify=="aa"):
+if(verify=="aa"): #password is "aa", lowercase
     name=input("Correct. What is your name?: ").capitalize()
     print("You have recieved ADMIN access. Reminder to put on 20.3 masks in Style 10.\n"+line)
     certified=True #if certified to have admin access or not
 else:
     certified=False 
+    print("You have recieved GUEST access. Reminder to put on 10.4 masks in Style 16.\n"+line)
     name=""
 
 print("**REMINDER: Please put on your gloves before proceeding**\n"+breakLine)
-run(certified,name)
+run(certified,name) #runs program 
 
 #ending print statement
 print(breakLine+"\nThank you! **REMOVE GLOVES & PLEASE WASH HANDS 2.5 TIMES BEFORE LEAVING**")
+
 #closing inventory.csv
 invRead.close()
 invAppend.close()

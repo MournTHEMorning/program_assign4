@@ -2,9 +2,9 @@
 inv=open("inventory.csv","a")
 
 class Create:
-    #intiatilze method
-    def __init__(self):
-        print("hey VSauce - create.py")
+    # #intiatilze method
+    # def __init__(self):
+    #     print("hey VSauce - create.py")
 
     #add -algorithm to create new entry
     def add(self,item_name,specimen,edibleStatus,price,creator):
@@ -15,4 +15,8 @@ class Create:
     #in emergency case to close file
     def closeFile(self):
         inv.close()
+
+    #in emergency case to open file, append version
+    def openFile(self):
+        inv=open("inventory.csv","a")
 
