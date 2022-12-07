@@ -7,23 +7,67 @@ inv=open("inventory.csv","a")
 a=(list(iRead.read())) # this gives you ['I','t','e' ...] every character is an element in the list. 
 print(len(a)) #250 characters as of dec 5th
 
-testLi=["start",["hi","bye","okay"],"nice",["okay","to-do"],"six",["find"],"end","\n"]
-search=input("SEARCH: ")
+testLi=["start",2321.23,["hi",True,3.24,"bye","okay"],True,["okay",3.24,"to-do"],"6",["find"],False,231.3,"end","\n"]
+loop=True
+while loop:
+    search=input("SEARCH TYPES || EDIBLE, PRICE, or OTHER(codes,creator,common_name): ")
+    findEdible="Not Applicible"
 
+    #searching for edible type
+    if(search.capitalize()=="Edible"):
+        specific=input("Item is edible: True or False?: ").capitalize()
+        if (specific=="True"):
+            findEdible=True
+            loop=False
+
+        elif(specific=="False"):
+            findEdible=False
+            loop=False
+
+        #if it's edible option but NOT a true or false statement
+        elif(search.capitalize()=="Edible" and (specific!="True" or specific!="False")):
+            print("Invalid input. Please try again.")
+            loop=True
+        
+    #searching for retail price
+    elif(search.upper()=="PRICE" or search.upper()=="RETAIL PRICE" or search.upper()=="RETAIL_PRICE"):
+        try:
+            search=float(input("Please ask for retail price here: "))
+            loop=False
+
+        except:
+            print("Not applicible. Please try again")
+            loop=True
+    
+    elif(search.lower()=="other"):
+        search=input("Please type your query here:")
+        loop=False
+    
+    
+
+counter=0
 for words in testLi:
     print(words)
     if(type(words)==list):
-        for elements in testLi[testLi.index(words)]:
+        for elements in words:
             if(elements==search):
                 print("FOUND IT!",elements,testLi.index(words))
-        
-    elif(type(words)==str):
-        if(words==search):
-            print("FOUND IT!",words,testLi.index(words))
-    
-    else:
-        print("no find.. yet!",testLi.index(words))
+                counter+=1
+            elif(elements==findEdible and type(elements)==bool):
+                print("FOUND IT! Elif!",elements,testLi.index(words))
+                counter+=1
 
+    
+    elif(words==findEdible and type(words)==bool):
+        print("FOUND IT! baha",words,testLi.index(words))
+        counter+=1
+
+    else:
+        if(words==search):
+            print("FOUND IT! doommm",words,testLi.index(words))
+            counter+=1
+
+print("out of {} entries: ".format(len(testLi)),counter,"of them had results of your search.")
 #Changing value types in values and putting it into variable
 counter=0
 var_inv=[]
@@ -59,6 +103,7 @@ for aLine in iRead:
 # #inv.write(str(var_inv)) #you don't need when doing append or it GETS FUNKY (like starts adding and adding in on itself)
 
 #print(var_inv)
+
 
 inv.close()
 iRead.close()
