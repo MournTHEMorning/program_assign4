@@ -10,6 +10,7 @@ print(len(a)) #250 characters as of dec 5th
 
 testLi=["start",2321.23,["hi",True,3.24,"bye","okay"],True,["okay",3.24,"to-do"],"6",["find"],False,231.3,"end","\n"]
 loop=True
+#note to self: \n = one character
 """
 while loop:
     search=input("SEARCH TYPES || EDIBLE, PRICE, or OTHER(codes,creator,common_name): ")

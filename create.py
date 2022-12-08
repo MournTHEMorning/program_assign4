@@ -2,12 +2,12 @@
 inv=open("inventory.csv","a")
 
 class Create:
-    # #intiatilze method
-    # def __init__(self):
-    #     print("hey VSauce - create.py")
+    #intialize method - pass because not required for this class
+    def __init__(self):
+        pass
 
     #add -algorithm to create new entry
-    def add(self,item_name,specimen,edibleStatus,price,creator):
+    def add(self,item_name,specimen,price,creator):
         new_entry=str("{},{},{},{}".format(item_name,specimen,price,creator))
         print(new_entry,type(new_entry))
         inv.write("\n"+new_entry)

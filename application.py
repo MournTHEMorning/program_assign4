@@ -30,10 +30,12 @@ def run(isManager,username):
             if(user=="R"):
                 readLoop=True
                 while readLoop:
-                    search=input("SEARCH TYPES ||PRICE or OTHER(codes,creator,common_name): ")
+                    #search input
+                    #note: This is very specific. Coded to not find anything similar. Spelling must be correct 
+                    search=input("SEARCH TYPES ||PRICE[P] or OTHER[O](codes,common_name,creator): ")
 
                     #searching for retail price
-                    if(search.upper()=="PRICE" or search.upper()=="RETAIL PRICE" or search.upper()=="RETAIL_PRICE"):
+                    if(search.upper()=="PRICE" or search=="p" or search=="P"):
                         try:
                             search=float(input("Please ask for retail price here: "))
                             readLoop=False
@@ -41,8 +43,9 @@ def run(isManager,username):
                         except:
                             print("Not applicible. Please try again")
                             readLoop=True
+
                     #searching for code, names, creator (anything in list as str type)
-                    elif(search.lower()=="other"):
+                    elif(search.upper()=="OTHER" or search=="o" or search=="O"):
                         search=input("Please type your query here:")
                         readLoop=False
 
