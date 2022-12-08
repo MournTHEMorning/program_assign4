@@ -20,7 +20,7 @@ breakLine=("-----*"*2)+"-----"
 def run(isManager,username):
     loop=True   #variable that makes loop continue
     while(loop):
-        print("WELCOME TO THE FRIDGE - INVENTORY MENU:\n READ[R] || EDIT[E] || CREATE[C] || DELETE[DEL] || EXIT[EXIT]")
+        print("WELCOME TO THE 'FRIDGE' - INVENTORY MENU:\n READ[R] || EDIT[E] || CREATE[C] || DELETE[DEL] || EXIT[EXIT]")
         #try block for menu
         try:
             user=input("Please input your option here: ").upper()
@@ -28,7 +28,39 @@ def run(isManager,username):
             #menu choices
             #menu choice - READ
             if(user=="R"):
-                print("read")
+                loop=True
+                while loop:
+                    search=input("SEARCH TYPES || EDIBLE, PRICE, or OTHER(codes,creator,common_name): ")
+                    findEdible="Not Applicible"
+
+                    #searching for edible type
+                    if(search.capitalize()=="Edible"):
+                        specific=input("Item is edible: True or False?: ").capitalize()
+                        if (specific=="True"):
+                            findEdible=True
+                            loop=False
+
+                        elif(specific=="False"):
+                            findEdible=False
+                            loop=False
+                    #if it's edible option but NOT a true or false statement
+                    elif(search.capitalize()=="Edible" and (specific!="True" or specific!="False")):
+                        print("Invalid input. Please try again.")
+                        loop=True
+                    #searching for retail price
+                    elif(search.upper()=="PRICE" or search.upper()=="RETAIL PRICE" or search.upper()=="RETAIL_PRICE"):
+                        try:
+                            search=float(input("Please ask for retail price here: "))
+                            loop=False
+
+                        except:
+                            print("Not applicible. Please try again")
+                            loop=True
+    
+                    #searching for code, names, creator (anything in list as str type)
+                    elif(search.lower()=="other"):
+                        search=input("Please type your query here:")
+                        loop=False
 
             #menu choice - leave menu
             elif(user=="EXIT"):

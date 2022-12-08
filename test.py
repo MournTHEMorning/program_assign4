@@ -3,12 +3,14 @@
 iRead=open("inventory.csv","r")
 inv=open("inventory.csv","a")
 
+
 #actually reads it; readline(CHARACTERS)
 a=(list(iRead.read())) # this gives you ['I','t','e' ...] every character is an element in the list. 
 print(len(a)) #250 characters as of dec 5th
 
 testLi=["start",2321.23,["hi",True,3.24,"bye","okay"],True,["okay",3.24,"to-do"],"6",["find"],False,231.3,"end","\n"]
 loop=True
+"""
 while loop:
     search=input("SEARCH TYPES || EDIBLE, PRICE, or OTHER(codes,creator,common_name): ")
     findEdible="Not Applicible"
@@ -68,12 +70,14 @@ for words in testLi:
             counter+=1
 
 print("out of {} entries: ".format(len(testLi)),counter,"of them had results of your search.")
+"""
+
 #Changing value types in values and putting it into variable
 counter=0
 var_inv=[]
 for aLine in iRead:
     values=aLine.split(",") # now a list called values
-    #print(values)
+    print(values)
     try:
         if (counter>=1):
             values[2]=bool(values[2]) #turning Edible into True/False
