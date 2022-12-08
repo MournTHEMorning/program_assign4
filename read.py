@@ -17,7 +17,7 @@ class Read:
             else:
                 self.invList[database][2]=float(self.invList[database][2])
 
-        inv.close()
+        self.closeFile(inv)
         return self.invList
 
     #search - searches for requested search; very specific
@@ -39,14 +39,21 @@ class Read:
 
         return ("There are {} entries in the database, and {} match to your search.".format(len(invList),counter))
 
-    #in emergency case to close file
+    #read - Reads raw csv data
+    def read(self):
+        inv=open("inventory.csv","r")
+        for aLine in inv:
+            print(aLine)
+
+        self.closeFile(inv)
+
+    #icloseFile - to close file
     def closeFile(self,inv):
         inv.close()
 
-    #in emergency case to open file, read version
+    #openFile- to open file, read version
     def openFile(self):
         inv=open("inventory.csv","r")
-
 
 #Testing ones - delete later
 # print(Read().search("Aud"))
