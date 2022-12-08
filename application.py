@@ -4,7 +4,7 @@ import create,read,edit,delete
 
 #making objects to reference respective classes
 createAccess=create.Create()
-# readAccess=read
+readAccess=read.Read()
 # editAccess=edit
 # deleteAccess=delete
 
@@ -18,8 +18,8 @@ line="-----*-----"
 breakLine=("-----*"*2)+"-----"
 
 def run(isManager,username):
-    loop=True   #variable that makes loop continue
-    while(loop):
+    menuLoop=True   #variable that makes loop continue
+    while(menuLoop):
         print("WELCOME TO THE 'FRIDGE' - INVENTORY MENU:\n READ[R] || EDIT[E] || CREATE[C] || DELETE[DEL] || EXIT[EXIT]")
         #try block for menu
         try:
@@ -28,8 +28,8 @@ def run(isManager,username):
             #menu choices
             #menu choice - READ
             if(user=="R"):
-                loop=True
-                while loop:
+                readLoop=True
+                while readLoop:
                     search=input("SEARCH TYPES || EDIBLE, PRICE, or OTHER(codes,creator,common_name): ")
                     findEdible="Not Applicible"
 
@@ -38,33 +38,34 @@ def run(isManager,username):
                         specific=input("Item is edible: True or False?: ").capitalize()
                         if (specific=="True"):
                             findEdible=True
-                            loop=False
+                            readLoop=False
 
                         elif(specific=="False"):
                             findEdible=False
-                            loop=False
+                            readLoop=False
                     #if it's edible option but NOT a true or false statement
                     elif(search.capitalize()=="Edible" and (specific!="True" or specific!="False")):
                         print("Invalid input. Please try again.")
-                        loop=True
+                        readLoop=True
                     #searching for retail price
                     elif(search.upper()=="PRICE" or search.upper()=="RETAIL PRICE" or search.upper()=="RETAIL_PRICE"):
                         try:
                             search=float(input("Please ask for retail price here: "))
-                            loop=False
+                            readLoop=False
 
                         except:
                             print("Not applicible. Please try again")
-                            loop=True
-    
+                            readLoop=True
                     #searching for code, names, creator (anything in list as str type)
                     elif(search.lower()=="other"):
                         search=input("Please type your query here:")
-                        loop=False
+                        readLoop=False
+
+                print(readAccess.search(search))
 
             #menu choice - leave menu
             elif(user=="EXIT"):
-                loop=False #leaves loop, exits menu
+                menuLoop=False #leaves loop, exits menu
 
             #specific for manager role - if password or not
             elif(user=="E" or user=="C" or user=="DEL"):
