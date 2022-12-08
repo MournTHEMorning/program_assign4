@@ -10,7 +10,6 @@ class Read:
             self.invList.append(aLine.split(","))
 
         for database in range(1,len(self.invList)):
-            self.invList[database][2]=bool(self.invList[database][2])
             self.invList[database][3]=float(self.invList[database][3])
 
         inv.close()
@@ -21,17 +20,12 @@ class Read:
         counter=0
         print(*invList[0],sep="  -  ")
         #entry = every list element in invList
-        for entry in invList:
+        for entry in invList[1:]:
             #for every element in each list entry
             for elements in entry:
-                #if search is str or float
+                #if search in list
                 if(elements==search):
                     print(*entry,sep="  |  ")
-                    counter+=1
-                #if search is True or False
-                elif(elements==search and type(elements)==bool and type(search)==bool):
-                    for search_database in entry:
-                        print(*entry,sep="   |   ")
                     counter+=1
 
         return ("There are {} entries in the database, and {} match to your search.".format(len(invList),counter))

@@ -30,25 +30,10 @@ def run(isManager,username):
             if(user=="R"):
                 readLoop=True
                 while readLoop:
-                    search=input("SEARCH TYPES || EDIBLE, PRICE, or OTHER(codes,creator,common_name): ")
-                    findEdible="Not Applicible"
+                    search=input("SEARCH TYPES ||PRICE or OTHER(codes,creator,common_name): ")
 
-                    #searching for edible type
-                    if(search.capitalize()=="Edible"):
-                        specific=input("Item is edible: True or False?: ").capitalize()
-                        if (specific=="True"):
-                            findEdible=True
-                            readLoop=False
-
-                        elif(specific=="False"):
-                            findEdible=False
-                            readLoop=False
-                    #if it's edible option but NOT a true or false statement
-                    elif(search.capitalize()=="Edible" and (specific!="True" or specific!="False")):
-                        print("Invalid input. Please try again.")
-                        readLoop=True
                     #searching for retail price
-                    elif(search.upper()=="PRICE" or search.upper()=="RETAIL PRICE" or search.upper()=="RETAIL_PRICE"):
+                    if(search.upper()=="PRICE" or search.upper()=="RETAIL PRICE" or search.upper()=="RETAIL_PRICE"):
                         try:
                             search=float(input("Please ask for retail price here: "))
                             readLoop=False
@@ -84,18 +69,7 @@ def run(isManager,username):
                             print("Your specimen code is not 3 digits.\n"+line)
                             specimen_num=input("Input 3 digit code for specimen name: ")
 
-                        edible=input("Is the item edible? (True or False): ").capitalize()
-                        #checks if edible is True or False in boolean terms
-                        edible_NotVerify=True
-                        while(edible_NotVerify):
-                            if(edible=="True" or edible=="False"):
-                                edible=bool(edible)
-                                edible_NotVerify=False
-                            else:
-                                print("You did not correctly state edible status.\n"+line)
-                                edible=input("Is the item edible? (True or False): ").capitalize()
-
-                        price=float(input("What is the retail price of item? (i.e. 3.14, no special characters): "))
+                        price=float(input("What is the retail price of item? (i.e. 3.14, 12.4,5214.0): "))
                         
                         #makes specimen code name
                         #if you CAN take the first 3 charas of name
@@ -111,7 +85,7 @@ def run(isManager,username):
                         specimen=(speci_chara.upper()+"-"+str(specimen_num))        
 
                         #adding to Inventory
-                        createAccess.add(item_name,specimen,edible,price,username)
+                        createAccess.add(item_name,specimen,price,username)
 
                     #menu choice - Delete
                     elif(user=="DEL" and isManager):
