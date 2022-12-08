@@ -9,8 +9,11 @@ class Read:
         for aLine in inv:
             self.invList.append(aLine.split(","))
 
-        for database in range(1,len(self.invList)):
-            self.invList[database][3]=float(self.invList[database][3])
+        for database in range(len(self.invList)):
+            if(database==0):
+                continue
+            else:
+                self.invList[database][2]=float(self.invList[database][2])
 
         inv.close()
         return self.invList
@@ -37,3 +40,6 @@ class Read:
     #in emergency case to open file, read version
     def openFile(self):
         inv=open("inventory.csv","r")
+
+
+print(Read().search("Aud"))
