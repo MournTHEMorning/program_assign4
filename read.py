@@ -21,23 +21,24 @@ class Read:
         return self.invList
 
     #search - searches for requested search; very specific
-    def search(self,search):
+    def search(self,searchList):
         invList=self.updateList()
         counter=0
         print(*invList[0],sep="  -  ")
-        #entry = every list element in invList
-        for entry in invList[1:]:
-            #for every element in each list entry
-            for elements in entry:
-                #if last entry, this is the creator and \n is to be removed
-                if (entry.index(elements)==len(entry)-1):
-                    elements=elements[0:-1]
-                #if search in list
-                if(elements==search):
-                    print(*entry,sep="  |  ")
-                    counter+=1
+        for search in searchList:
+            #entry = every list element in invList
+            for entry in invList[1:]:
+                #for every element in each list entry
+                for elements in entry:
+                    #if last entry, this is the creator and \n is to be removed
+                    if (entry.index(elements)==len(entry)-1):
+                        elements=elements[0:-1]
+                    #if search in list
+                    if(elements==search):
+                        print(*entry,sep="  |  ")
+                        counter+=1
 
-        return ("There are {} entries in the database, and {} match to your search.".format(len(invList),counter))
+        return counter
 
     #read - Reads raw csv data
     def read(self):

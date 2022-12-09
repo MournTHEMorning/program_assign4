@@ -9,7 +9,6 @@ class Create:
     #add -algorithm to create new entry
     def add(self,item_name,specimen,price,creator):
         new_entry=str("{},{},{},{}".format(item_name,specimen,price,creator))
-        print(new_entry,type(new_entry))
         inv.write("\n"+new_entry)
 
     #in emergency case to close file

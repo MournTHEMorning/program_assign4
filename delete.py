@@ -5,5 +5,5 @@ class Delete:
     def __init__(self):
         print("This is delete")
 
-    def subtract(self):
+    def delete(self):
         print("this is subtracting")

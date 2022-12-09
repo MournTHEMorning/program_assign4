@@ -24,32 +24,56 @@ def run(isManager,username):
         #try block for menu
         try:
             user=input("Please input your option here: ").upper()
+            print(breakLine*2)
 
             #menu choices
             #menu choice - READ
             if(user=="R"):
-                readLoop=True
-                while readLoop:
-                    #search input
-                    #note: This is very specific. Coded to not find anything similar. Spelling must be correct 
+                searchList=[]
+                #search input
+                #note: This is very specific. Coded to not find anything similar. Spelling must be correct 
+                print("Please indicate the type of search and type below [Minimum 2 searches]. ")
+                search=" "
+                while (search.upper()!="STOP"):
+                    #tells user if they can escape loop
+                    if(len(searchList)>=2):
+                        print("Type 'stop' to begin searching with your selected filters")
+
                     search=input("SEARCH TYPES ||PRICE[P] or OTHER[O](codes,common_name,creator): ")
 
                     #searching for retail price
                     if(search.upper()=="PRICE" or search=="p" or search=="P"):
                         try:
-                            search=float(input("Please ask for retail price here: "))
-                            readLoop=False
+                            search=input("Please ask for retail price here (e.g. 3.14,20,33.1): ")
+                            if search.upper() == "STOP":
+                                search=" " #user cannot stop here
+                            else:
+                                search=float(search)
+                                searchList.append(search)
 
                         except:
                             print("Not applicible. Please try again")
-                            readLoop=True
+
+                        finally: #to prevent float.upper() errors
+                            search=" "
 
                     #searching for code, names, creator (anything in list as str type)
                     elif(search.upper()=="OTHER" or search=="o" or search=="O"):
-                        search=input("Please type your query here:")
-                        readLoop=False
+                        search=input("Please type your query (name, code or creator) here:")
+                        if search.upper()=="STOP":
+                            search=" " #user cannot stop here
+                        searchList.append(search)
+                    
+                    #invalid answer
+                    elif(search.upper()!="STOP"):
+                        print("Please select PRICE[P] or OTHER[O] as an option")
 
-                print(readAccess.search(search))
+                    #makes user stay if less than 2 searches
+                    if (len(searchList)<2):
+                        search=""
+                    print(breakLine)
+                
+                print(line,"\nYour searches were: {} \nIn the database, you have {} match(es) to your searches.".format(searchList,readAccess.search(searchList)))
 
             #menu choice - leave menu
             elif(user=="EXIT"):
@@ -57,15 +81,19 @@ def run(isManager,username):
 
             #specific for manager role - if password or not
             elif(user=="E" or user=="C" or user=="DEL"):
+                #if the user is a resource manager
                 if (isManager):
                     #menu choice - EDIT
-                    if(user=="E" and isManager):
+                    if(user=="E"):
                         print("edit")
 
                     #menu choice - Create
-                    elif(user=="C" and isManager):
+                    elif(user=="C"):
                         #getting values from users                        
                         item_name=input("What is the item's common name?: ").capitalize()
+                        while (item_name=="Stop"):
+                            print("This is not a valid item. Please choose again.")
+                            item_name=input("What is the item's common name?: ").capitalize()
                         specimen_num=input("Input 3 digit code for specimen name: ")
                         #checking the length of the code. It should be 3 digits
                         while(len(specimen_num)!=3):
@@ -91,8 +119,10 @@ def run(isManager,username):
                         createAccess.add(item_name,specimen,price,username)
 
                     #menu choice - Delete
-                    elif(user=="DEL" and isManager):
+                    elif(user=="DEL"):
                         print("delete")
+                
+                #if the user is not a resource manager
                 else:
                     print("You do not have authorization")
 

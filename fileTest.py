@@ -12,3 +12,7 @@ f2.seek(3) #?? brain too tired rn check later
 #f2.seek(2).write("rey\n")
 f2.close()
 #what you can do in write+, read write and seek
+
+i="1234567890"
+for num in i:
+    print("23")
