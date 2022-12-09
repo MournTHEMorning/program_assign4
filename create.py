@@ -1,6 +1,4 @@
 """CREATE.PY: Make resource through attributes given"""
-inv=open("inventory.csv","a")
-
 class Create:
     #intialize method - pass because not required for this class
     def __init__(self):
@@ -8,11 +6,14 @@ class Create:
 
     #add -algorithm to create new entry
     def add(self,item_name,specimen,price,creator):
+        inv=self.openFile()
         new_entry=str("{},{},{},{}".format(item_name,specimen,price,creator))
         inv.write("\n"+new_entry)
+        self.closeFile(inv)
+
 
     #in emergency case to close file
-    def closeFile(self):
+    def closeFile(self,inv):
         inv.close()
 
     #in emergency case to open file, append version

@@ -17,7 +17,7 @@ class Delete:
         writeFile=self.openFileW()
         for line in data:
             if data.index(line)==del_index:
-                pass
+                continue
             else:
                 writeFile.write(str("{},{},{},{}".format(*line)))
         
