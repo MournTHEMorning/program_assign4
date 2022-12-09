@@ -18,5 +18,5 @@ class Create:
 
     #in emergency case to open file, append version
     def openFile(self):
-        inv=open("inventory.csv","a")
+        return open("inventory.csv","a")
 

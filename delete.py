@@ -13,16 +13,25 @@ class Delete:
         for aLine in readFile:
             data.append(aLine.split(","))
 
-        #rewrites file to include the changed data
-        writeFile=self.openFileW()
-        for line in data:
-            if data.index(line)==del_index:
-                continue
-            else:
-                writeFile.write(str("{},{},{},{}".format(*line)))
+        self.closeFileR()
         
-        print("Data and evidence burned. Removing debris... Hit any key to continue.")
-        self.closeFileW()
+        #if there is data to delete
+        if len(data)>1:
+            #rewrites file to include the changed data
+            writeFile=self.openFileW()
+            for line in data:
+                #+1 is to consider the category -- which is not a true line of data -- and should not be deleted
+                if data.index(line)==del_index+1:
+                    continue
+                else:
+                    writeFile.write(str("{},{},{},{}".format(*line)))
+            
+            print("Data and evidence burned. Removing debris... Hit any key to continue.")
+            self.closeFileW()
+
+        #Fail safe for not deleting categories    
+        else:
+            print("You do not have any data to delete.")
 
 
     #opens file read
@@ -41,3 +50,15 @@ class Delete:
     #closes file write
     def closeFileW(self):
         self.invWrite.close()
+
+Delete().burn(2)
+
+# Item,Specimen-Name,Retail-Price,Scientist-Name
+# Orange,ORA-123,3.45,Aud
+# Moss,MOS-346,123.26,Aud
+# "Charlie",CHA-731,92.6,Aud
+# Donut,DON-167,7000.07,Aud
+# Cup,CUP-136,326.4,Jesus
+# Pickles,PIC-982,12.4,Two-seven-eight
+# Luigi,LUI-907,999.99,Mario
+# Juice,JUI-081,69.02,Login

@@ -96,7 +96,7 @@ class Read:
 
     #openFile- to open file, read version
     def openFile(self):
-        inv=open("inventory.csv","r")
+        return open("inventory.csv","r")
 
 #Testing ones - delete later
 # print(Read().quickSearch("\"Charlie\""))
