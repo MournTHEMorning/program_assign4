@@ -43,7 +43,23 @@ class Read:
     def quickSearch(self,query):
         invList=self.updateList()
         indexCounter=[]
-        counter=0
+
+        #in case the search is a float or not
+        check=0; checking=True
+        while checking:
+            try:
+                for chara in query:
+                    for num in range(10):
+                        if chara in "1234567890" or chara==".":
+                            check+=1
+            
+                if(len(query)==check):
+                    float(query)
+                checking=False
+
+            except:
+                continue
+
         print(*invList[0],sep="  -  ")
         for entry in invList[1:]:
             #for every element in each list entry
