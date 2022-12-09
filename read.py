@@ -40,6 +40,24 @@ class Read:
 
         return counter
 
+    def quickSearch(self,query):
+        invList=self.updateList()
+        indexCounter=[]
+        counter=0
+        print(*invList[0],sep="  -  ")
+        for entry in invList[1:]:
+            #for every element in each list entry
+            for elements in entry:
+                #if last entry, this is the creator and \n is to be removed
+                if (entry.index(elements)==len(entry)-1):
+                    elements=elements[0:-1]
+                #if search in list
+                if(elements==query):
+                    print(*entry,sep="  |  ")
+                    indexCounter.append(invList.index(entry))
+
+        return indexCounter
+
     #read - Reads raw csv data
     def read(self):
         inv=open("inventory.csv","r")
@@ -57,7 +75,8 @@ class Read:
         inv=open("inventory.csv","r")
 
 #Testing ones - delete later
-# print(Read().search("Aud"))
+# print(Read().quickSearch("\"Charlie\""))
+# print(Read().quickSearch("Aud"))
 # print(Read().search("Jesus"))
 # print(Read().search("Nothing"))
 # print(Read().search(True))

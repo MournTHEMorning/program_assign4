@@ -85,7 +85,31 @@ def run(isManager,username):
                 if (isManager):
                     #menu choice - EDIT
                     if(user=="E"):
-                        print("edit")
+                        print("Name a characteristic of the data you want to edit. (i.e. Creator, price, code, name)\nSpelling counts.")
+                        query=input("Characteristic: ")
+                        times=readAccess.quickSearch(query) #number of times the query comes up; use quick search
+                        #item does not exist in database
+                        if (len(times)==0):
+                            print("You cannot edit something that does not exist.")
+                        elif (len(times)>=1):
+                            #item appears once
+                            if len(times)==1:
+                                print("What would you like to edit?: PRICE [P] || CREATOR[C]\nInput anything else to quit")
+                                edit_quality=input("I would like to edit: ").upper()
+
+                                if edit_quality=="P" or "PRICE":
+                                    pass #edit [2]
+                                elif edit_quality=="C" or "CREATOR":
+                                    pass #edit [3]
+                                else:
+                                    print("Returning to main menu...\n",breakLine*2)
+                            
+                            #if Item appears more than once
+                            elif len(times)>1:
+                                print("Please write the code of the item you would like (Spelling and case counts).\nInput anything else to quit.")
+                                specific_item=input("CODE: ")
+                                #do stuff~
+
 
                     #menu choice - Create
                     elif(user=="C"):
