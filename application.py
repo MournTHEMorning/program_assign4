@@ -1,4 +1,8 @@
-"""APPLICATION.PY: access point of other classes"""
+"""APPLICATION.PY: access point of other classes and user interaction"""
+#The theme of the inventory system is a scientific, suspicious fridge. One can manage or view the contents of this strange refrigerator...
+#Password for admin access(lowercase and underscore needed): sus_fridge2022
+    #no password: only reading permissions involved
+
 #importing modules to create, read,edit and delete information in inventory.csv
 import create,read,edit,delete
 
@@ -8,15 +12,11 @@ readAccess=read.Read()
 editAccess=edit.Edit()
 deleteAccess=delete.Delete()
 
-#opening inventory.csv
-invRead=open("inventory.csv","r")
-invAppend=open("inventory.csv","a")
-# #read=inv.split(",")
-
 #variables for readability
 line="-----*-----"
 breakLine=("-----*"*2)+"-----"
 
+#run() - runs program
 def run(isManager,username):
     menuLoop=True   #variable that makes loop continue
     while(menuLoop):
@@ -104,8 +104,7 @@ def run(isManager,username):
                                 item_index=readAccess.quickSearch(specific_item)
                                 #get the numeric value of item's index by extracting it from list
                                 item_index=item_index[0]
-                                
-                            
+                                    
                             #item appears once
                             elif len(times)==1:
                                 item_index=times[0]
@@ -114,6 +113,7 @@ def run(isManager,username):
                             else:
                                 item_index=-10
 
+                            #the item index exists. it should be more or equal to one because index zero is category line
                             if (item_index>=1):
                                 print("What would you like to edit?: PRICE [P] || CREATOR[C]\nInput anything else to quit")
                                 edit_quality=input("I would like to edit: ").upper()
@@ -129,8 +129,9 @@ def run(isManager,username):
                                     if len(user_edit)>=1 and (user_edit!=""):
                                         editAccess.change(item_index,3,(user_edit)+"\n")
 
+                                 #which will cause user to leave
                                 else:
-                                    pass #which will cause user to leave
+                                    pass
 
                     #menu choice - Create
                     elif(user=="C"):
@@ -145,6 +146,7 @@ def run(isManager,username):
                             print("Your specimen code is not 3 digits.\n"+line)
                             specimen_num=input("Input 3 digit code for specimen name: ")
 
+                        #expected error if not a float value. try and catch will grab exception
                         price=float(input("What is the retail price of item? (i.e. 3.14, 12.4,5214.0): "))
                         
                         #makes specimen code name
@@ -155,6 +157,7 @@ def run(isManager,username):
                         #if you cannot
                         else:
                             speci_chara=item_name
+                            #length of speci_character is not 3, add a zero
                             while(len(speci_chara)!=3):
                                 speci_chara=speci_chara+"O"
                         #specimen code created
@@ -166,24 +169,28 @@ def run(isManager,username):
                     #menu choice - Delete
                     elif(user=="DEL"):
                         characteristic=input("Name a unique characteristic of the data you want to delete (i.e. Code): ")
-                        existingItem_index=readAccess.quickSearch(characteristic)
+                        #if the input is valid
+                        if characteristic!="":
+                            existingItem_index=readAccess.quickSearch(characteristic)
                         
-                        #if the item exists only once
-                        if len(existingItem_index)==1:
-                            print("Are you sure you want to delete the following item?\n Type BURN (provide upper case, user!) to remove data from database.")
-                            burn_this=input("So, do you wish to remove the data?: ")
-                            #consent to burn data
-                            if burn_this=="BURN":
-                                deleteAccess.burn(existingItem_index[0])
-                                input()
+                            #if the item exists only once
+                            if len(existingItem_index)==1:
+                                print("Are you sure you want to delete the following item?\n Type BURN (provide upper case, user!) to remove data from database.")
+                                burn_this=input("So, do you wish to remove the data?: ")
+                                #consent to burn data
+                                if burn_this=="BURN":
+                                    #since there will only be one item in this list, this is the index of that is needed in burn()
+                                    deleteAccess.burn(existingItem_index[0])
+                                    input()
+                                else:
+                                    print("Understood. Fires extinguished.")
+
+                            #else, meaning item does not exist or exists more than once
                             else:
-                                print("Understood. Fires extinguished.")
+                                print("This item does not exists in database or exists more than once; therefore not unique.")
 
-                        #else, meaning item does not exist or exists more than once
-                        else:
-                            print("This item does not exists in database or exists more than once; therefore not unique.")
-
-                    #meaning user has quit their option or finished
+                    #END OF ADMIN MENU
+                    #meaning user has quit their option or finished with admin settings
                     print("Returning to main menu...\n",breakLine*2)
                 
                 #if the user is not a resource manager
@@ -200,12 +207,8 @@ def run(isManager,username):
         finally:
             print(breakLine)
 
-
-
-#THEME: weird as heck fridge, kinda omnious but quirky
-#Item,Specimen Name(FIRST THREE LETTERS OF IT-RANDOM NUM),Edible,Retail Price,Scientist Name(i.e. Aud,Harrison,Mario,dr.Ken,bob)
 verify=input("Password: ")
-if(verify=="aa"): #password is "aa", lowercase
+if(verify=="sus_fridge2022"): #password is "sus_fridge2022", lowercase
     name=input("Correct. What is your name?: ").capitalize()
     print("You have recieved ADMIN access. Reminder to put on 20.3 masks in Style 10.\n"+line)
     certified=True #if certified to have admin access or not
@@ -219,7 +222,3 @@ run(certified,name) #runs program
 
 #ending print statement
 print(breakLine+"\nThank you! **REMOVE GLOVES & PLEASE WASH HANDS 2.5 TIMES BEFORE LEAVING**")
-
-#closing inventory.csv
-invRead.close()
-invAppend.close()

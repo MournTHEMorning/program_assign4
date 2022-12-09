@@ -1,16 +1,18 @@
-"""READ.PY: Find items that fit on two characteristics, at least. Basically like a google search"""
+"""READ.PY: Find items that fit on two or more characteristics"""
 class Read:
     #intialize method - pass because not required for this class
     def __init__(self):
         pass
 
-    #updateList - updates the list
+    #updateList - updates the list; critical to get information
     def updateList(self):
         self.invList=[] #list that represents data. Will iterate through
         inv=open("inventory.csv","r")
+        #for every line in inventory.csv, add it to the list
         for aLine in inv:
             self.invList.append(aLine.split(","))
 
+        #change the database list for float values (allows for proper decimal searches)
         for database in range(len(self.invList)):
             if(database==0):
                 continue

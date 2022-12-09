@@ -12,11 +12,11 @@ class Create:
         self.closeFile(inv)
 
 
-    #in emergency case to close file
+    #close file
     def closeFile(self,inv):
         inv.close()
 
-    #in emergency case to open file, append version
+    # open file, append version
     def openFile(self):
         return open("inventory.csv","a")
 

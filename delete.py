@@ -15,6 +15,8 @@ class Delete:
             data.append(aLine.split(","))
 
         self.closeFileR()
+
+        #try
         try:
             #if there is data to delete in files and del_index is a number
             if len(data)>1 and type(del_index)==int:
@@ -27,16 +29,19 @@ class Delete:
                     else:
                         writeFile.write(str("{},{},{},{}".format(*line)))
                 
+                #close writing file
                 self.closeFileW()
                 print("Data and evidence burned. Removing debris... Hit any key to continue.")
 
-            #Fail safe for not deleting categories    
+            #Fail safe to not deleting categories line  
             else:
                 print("You do not have any data to delete.")
 
+        #except
         except Exception as e:
             print("While deleting the data, an error appeared: ", e)
             writeFile=self.openFileW()
+            #adds old data and closes file
             for line in data:
                 writeFile.write(str("{},{},{},{}".format(*line)))
                 self.closeFileW()
@@ -58,9 +63,9 @@ class Delete:
     def closeFileW(self):
         self.invWrite.close()
 
-Delete().burn("hu")
-Delete().burn(3)
-Delete().burn(6)
+#TEST VALUES
+# Delete().burn(3)
+# Delete().burn(6)
 # Item,Specimen-Name,Retail-Price,Scientist-Name
 # Orange,ORA-123,3.45,Aud
 # Moss,MOS-346,123.26,Aud
