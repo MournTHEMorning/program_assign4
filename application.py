@@ -137,13 +137,16 @@ def run(isManager,username):
                     elif(user=="C"):
                         #getting values from users                        
                         item_name=input("What is the item's common name?: ").capitalize()
-                        while (item_name=="Stop"):
-                            print("This is not a valid item. Please choose again.")
+                        #item_name should not be stop - key word in other menu
+                        #see if item already exists. (len(readAccess etc. etc)==0 means nothing else like it in database) 
+                            # There should be no duplicates
+                        while (item_name=="Stop") or (len(readAccess.quickSearch(item_name))!=0):
+                            print("This is not a valid or duplicate item. Please choose again.")
                             item_name=input("What is the item's common name?: ").capitalize()
                         specimen_num=input("Input 3 digit code for specimen name: ")
                         #checking the length of the code. It should be 3 digits
                         while(len(specimen_num)!=3):
-                            print("Your specimen code is not 3 digits.\n"+line)
+                            print("Your specimen code is not 3 digits or not unique.\n"+line)
                             specimen_num=input("Input 3 digit code for specimen name: ")
 
                         #expected error if not a float value. try and catch will grab exception
