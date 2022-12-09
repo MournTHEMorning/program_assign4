@@ -174,7 +174,7 @@ def run(isManager,username):
                             burn_this=input("So, do you wish to remove the data?: ")
                             #consent to burn data
                             if burn_this=="BURN":
-                                deleteAccess.burn(existingItem_index)
+                                deleteAccess.burn(existingItem_index[0])
                                 input()
                             else:
                                 print("Understood. Fires extinguished.")

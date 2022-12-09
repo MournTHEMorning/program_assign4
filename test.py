@@ -115,7 +115,7 @@ iRead.close()
 
 
 #ORIGINAL DATA of inventory.csv
-# Item,Specimen-Name,Edible,Retail-Price,Scientist-Name
+# Item,Specimen-Name,Retail-Price,Scientist-Name
 # Orange,ORA-123,3.45,Aud
 # Moss,MOS-346,123.26,Aud
 # "Charlie",CHA-731,92.6,Aud

@@ -6,6 +6,7 @@ class Delete:
         pass
 
     #burn - deletes data from database. "Burn" is the word that fits into the program's theme
+    #del_index should be one int
     def burn(self,del_index):
         #recieving data
         readFile=self.openFileR()
@@ -14,25 +15,31 @@ class Delete:
             data.append(aLine.split(","))
 
         self.closeFileR()
-        
-        #if there is data to delete
-        if len(data)>1:
-            #rewrites file to include the changed data
+        try:
+            #if there is data to delete in files and del_index is a number
+            if len(data)>1 and type(del_index)==int:
+                #rewrites file to include the changed data
+                writeFile=self.openFileW()
+                for line in data:
+                    #+1 is to consider the category -- which is not a true line of data -- and should not be deleted
+                    if data.index(line)==del_index:
+                        continue
+                    else:
+                        writeFile.write(str("{},{},{},{}".format(*line)))
+                
+                self.closeFileW()
+                print("Data and evidence burned. Removing debris... Hit any key to continue.")
+
+            #Fail safe for not deleting categories    
+            else:
+                print("You do not have any data to delete.")
+
+        except Exception as e:
+            print("While deleting the data, an error appeared: ", e)
             writeFile=self.openFileW()
             for line in data:
-                #+1 is to consider the category -- which is not a true line of data -- and should not be deleted
-                if data.index(line)==del_index+1:
-                    continue
-                else:
-                    writeFile.write(str("{},{},{},{}".format(*line)))
-            
-            print("Data and evidence burned. Removing debris... Hit any key to continue.")
-            self.closeFileW()
-
-        #Fail safe for not deleting categories    
-        else:
-            print("You do not have any data to delete.")
-
+                writeFile.write(str("{},{},{},{}".format(*line)))
+                self.closeFileW()
 
     #opens file read
     def openFileR(self):
@@ -51,8 +58,9 @@ class Delete:
     def closeFileW(self):
         self.invWrite.close()
 
-Delete().burn(2)
-
+Delete().burn("hu")
+Delete().burn(3)
+Delete().burn(6)
 # Item,Specimen-Name,Retail-Price,Scientist-Name
 # Orange,ORA-123,3.45,Aud
 # Moss,MOS-346,123.26,Aud
