@@ -135,8 +135,6 @@ def run(isManager,username):
                         #meaning user quits editing  
                         print("Returning to main menu...\n",breakLine*2)
 
-
-
                     #menu choice - Create
                     elif(user=="C"):
                         #getting values from users                        
@@ -170,7 +168,23 @@ def run(isManager,username):
 
                     #menu choice - Delete
                     elif(user=="DEL"):
-                        print("delete")
+                        characteristic=input("Name a unique characteristic of the data you want to delete (i.e. Code): ")
+                        existingItem_index=readAccess.quickSearch(characteristic)
+                        
+                        #if the item exists only once
+                        if len(existingItem_index)==1:
+                            print("Are you sure you want to delete the following item?\n Type BURN (provide upper case, user!) to remove data from database.")
+                            burn_this=input("So, do you wish to remove the data?: ")
+                            #consent to burn data
+                            if burn_this=="BURN":
+                                deleteAccess.burn(existingItem_index)
+                            else:
+                                print("Understood. Fires extinguished.")
+
+                        #else, meaning item does not exist or exists more than once
+                        else:
+                            print("This item does not exists in database or exists more than once; therefore not unique.")
+
                 
                 #if the user is not a resource manager
                 else:

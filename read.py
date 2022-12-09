@@ -20,7 +20,7 @@ class Read:
         self.closeFile(inv)
         return self.invList
 
-    #search - searches for requested search; very specific
+    #search - searches for requested search list items; very specific
     def search(self,searchList):
         invList=self.updateList()
         counter=0
@@ -40,6 +40,8 @@ class Read:
 
         return counter
 
+    #quickSearch - searches for str query and gives indexCounter list of which line the element is in the list through indexCounter
+    #used by the Delete and Edit classes
     def quickSearch(self,query):
         invList=self.updateList()
         indexCounter=[]
