@@ -90,7 +90,7 @@ def run(isManager,username):
                         #""causes infinite search; this prevents this
                         if(query!=""):
                             #uses quickSearch to return indexes of the lists that has the characteristic of variable query
-                            times=readAccess.quickSearch(query) 
+                            times=readAccess.quickSearch(query,True) 
                         #item does not exist in database
                         if (len(times)==0):
                             print("You cannot edit something that does not exist.")
@@ -101,7 +101,7 @@ def run(isManager,username):
                                 print("Please write the code of the item you would like (Spelling and case counts).\nInput anything else to quit.")
                                 specific_item=input("ITEM'S UNIQUE CHARACTERISTIC: ")
                                 #returns specific code's list index in csv file in list form
-                                item_index=readAccess.quickSearch(specific_item)
+                                item_index=readAccess.quickSearch(specific_item,True)
                                 #get the numeric value of item's index by extracting it from list
                                 item_index=item_index[0]
                                     
@@ -140,7 +140,7 @@ def run(isManager,username):
                         #item_name should not be stop - key word in other menu
                         #see if item already exists. (len(readAccess etc. etc)==0 means nothing else like it in database) 
                             # There should be no duplicates
-                        while (item_name=="Stop") or (len(readAccess.quickSearch(item_name))!=0):
+                        while (item_name=="Stop") or (len(readAccess.quickSearch(item_name,False))!=0):
                             print("This is not a valid or duplicate item. Please choose again.")
                             item_name=input("What is the item's common name?: ").capitalize()
                         specimen_num=input("Input 3 digit code for specimen name: ")
@@ -174,7 +174,7 @@ def run(isManager,username):
                         characteristic=input("Name a unique characteristic of the data you want to delete (i.e. Code): ")
                         #if the input is valid
                         if characteristic!="":
-                            existingItem_index=readAccess.quickSearch(characteristic)
+                            existingItem_index=readAccess.quickSearch(characteristic,True)
                         
                             #if the item exists only once
                             if len(existingItem_index)==1:

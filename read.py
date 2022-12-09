@@ -44,7 +44,7 @@ class Read:
 
     #quickSearch - searches for str query and gives indexCounter list of which line the element is in the list through indexCounter
     #used by the Delete and Edit classes
-    def quickSearch(self,query):
+    def quickSearch(self,query,showResults):
         invList=self.updateList()
         indexCounter=[]
 
@@ -79,8 +79,10 @@ class Read:
                     elements=elements[0:-1]
                 #if search in list
                 if(elements==query):
-                    print(*entry,sep="  |  ")
                     indexCounter.append(invList.index(entry))
+                    #showResults- if the respective stats should be shown or not
+                    if(showResults): 
+                        print(*entry,sep="  |  ")
 
         return indexCounter
 
