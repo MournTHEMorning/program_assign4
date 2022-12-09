@@ -5,13 +5,13 @@ import create,read,edit,delete
 #making objects to reference respective classes
 createAccess=create.Create()
 readAccess=read.Read()
-# editAccess=edit
-# deleteAccess=delete
+editAccess=edit.Edit()
+deleteAccess=delete.Delete()
 
 #opening inventory.csv
 invRead=open("inventory.csv","r")
 invAppend=open("inventory.csv","a")
-#read=inv.split(",")
+# #read=inv.split(",")
 
 #variables for readability
 line="-----*-----"
@@ -87,8 +87,10 @@ def run(isManager,username):
                     if(user=="E"):
                         print("Name a characteristic of the data you want to edit. (i.e. Creator, price, code, name)\nSpelling counts.")
                         query=input("Characteristic: ")
-                        #uses quickSearch to return indexes of the lists that has the characteristic of variable query
-                        times=readAccess.quickSearch(query) 
+                        #""causes infinite search; this prevents this
+                        if(query!=""):
+                            #uses quickSearch to return indexes of the lists that has the characteristic of variable query
+                            times=readAccess.quickSearch(query) 
                         #item does not exist in database
                         if (len(times)==0):
                             print("You cannot edit something that does not exist.")
@@ -118,8 +120,9 @@ def run(isManager,username):
 
                                 #Will change for price
                                 if (edit_quality=="P" or edit_quality=="PRICE"):
-                                    user_edit=input("Please enter your edit here: ")
-                                     #edit [2]
+                                    user_edit=float(input("Please enter your edit here (float value): "))
+                                    editAccess.change(item_index,2,user_edit)
+                                    
                                 #Will change creator
                                 elif (edit_quality=="C" or edit_quality=="CREATOR"):
                                     user_edit=input("Please enter your edit here: ")
