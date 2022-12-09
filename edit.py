@@ -12,14 +12,21 @@ class Edit:
         for aLine in readFile:
             data.append(aLine.split(","))
 
-        data[listIndex][elementIndex]=newVal
+        #changing creator, which is elementIndex, which would be index 3 or length of list -1 and needs \n at end
+        if elementIndex==(len(data[0])-1):
+            data[listIndex][elementIndex]=(newVal)
+
+        #changing price
+        else:
+            data[listIndex][elementIndex]=newVal
         self.closeFileR()
 
         #rewrites file to include the changed data
         writeFile=self.openFileW()
         for line in data:
             writeFile.write(str("{},{},{},{}".format(*line)))
-
+        
+        print("Editing File: Update successful")
         self.closeFileW()
 
 

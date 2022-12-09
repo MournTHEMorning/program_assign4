@@ -85,7 +85,7 @@ def run(isManager,username):
                 if (isManager):
                     #menu choice - EDIT
                     if(user=="E"):
-                        print("Name a characteristic of the data you want to edit. (i.e. Creator, price, code, name)\nSpelling counts.")
+                        print("Name a characteristic of the data you want to edit. (i.e. Creator, price, code, name)\nSpelling and Case counts.")
                         query=input("Characteristic: ")
                         #""causes infinite search; this prevents this
                         if(query!=""):
@@ -126,7 +126,9 @@ def run(isManager,username):
                                 #Will change creator
                                 elif (edit_quality=="C" or edit_quality=="CREATOR"):
                                     user_edit=input("Please enter your edit here: ")
-                                     #edit [3]
+                                    if len(user_edit)>=1 and (user_edit!=""):
+                                        editAccess.change(item_index,3,(user_edit)+"\n")
+
                                 else:
                                     pass #which will cause user to leave
                              
