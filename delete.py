@@ -62,16 +62,3 @@ class Delete:
     #closes file write
     def closeFileW(self):
         self.invWrite.close()
-
-#TEST VALUES
-# Delete().burn(3)
-# Delete().burn(6)
-# Item,Specimen-Name,Retail-Price,Scientist-Name
-# Orange,ORA-123,3.45,Aud
-# Moss,MOS-346,123.26,Aud
-# "Charlie",CHA-731,92.6,Aud
-# Donut,DON-167,7000.07,Aud
-# Cup,CUP-136,326.4,Jesus
-# Pickles,PIC-982,12.4,Two-seven-eight
-# Luigi,LUI-907,999.99,Mario
-# Juice,JUI-081,69.02,Login

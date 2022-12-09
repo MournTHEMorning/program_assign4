@@ -46,6 +46,3 @@ class Edit:
     #closes file write
     def closeFileW(self):
         self.invWrite.close()
-
-#Test cases
-# Edit().change(3,2,3.2)

@@ -69,8 +69,9 @@ class Read:
 
             except:
                 continue
-
-        print(*invList[0],sep="  -  ")
+        #showResults- if the respective stats should be shown or not
+        if(showResults): 
+            print(*invList[0],sep="  -  ")
         for entry in invList[1:]:
             #for every element in each list entry
             for elements in entry:
@@ -101,21 +102,3 @@ class Read:
     #openFile- to open file, read version
     def openFile(self):
         return open("inventory.csv","r")
-
-#Testing ones - delete later
-# print(Read().quickSearch("\"Charlie\""))
-# print(Read().quickSearch("Aud"))
-# print(Read().search("Jesus"))
-# print(Read().search("Nothing"))
-# print(Read().search(True))
-# print(Read().search(3.14))
-# print(Read().search(123.26))
-# print(Read().search("\"Charlie\""))
-# print(Read().search("Moss"))
-# print(Read().search("MOS-346"))
-# print(Read().search("CHA"))
-# print(Read().search("ORA-123"))
-# print(Read().search("READ"))
-# print(Read().search("|"))
-# print(Read().search("Retail-Price"))
-# print(Read().search("Item"))
