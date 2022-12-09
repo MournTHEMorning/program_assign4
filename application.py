@@ -74,7 +74,7 @@ def run(isManager,username):
                     print(breakLine)
                 
                 print(line,"\nYour searches were: {} \nIn the database, you have {} match(es) to your searches.".format(searchList,readAccess.search(searchList)))
-
+                print("Returning to main menu...\n",breakLine*2)
             #menu choice - leave menu
             elif(user=="EXIT"):
                 menuLoop=False #leaves loop, exits menu
@@ -131,9 +131,6 @@ def run(isManager,username):
 
                                 else:
                                     pass #which will cause user to leave
-                             
-                        #meaning user quits editing  
-                        print("Returning to main menu...\n",breakLine*2)
 
                     #menu choice - Create
                     elif(user=="C"):
@@ -178,6 +175,7 @@ def run(isManager,username):
                             #consent to burn data
                             if burn_this=="BURN":
                                 deleteAccess.burn(existingItem_index)
+                                input()
                             else:
                                 print("Understood. Fires extinguished.")
 
@@ -185,6 +183,8 @@ def run(isManager,username):
                         else:
                             print("This item does not exists in database or exists more than once; therefore not unique.")
 
+                    #meaning user has quit their option or finished
+                    print("Returning to main menu...\n",breakLine*2)
                 
                 #if the user is not a resource manager
                 else:
