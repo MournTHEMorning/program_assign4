@@ -44,17 +44,23 @@ class Read:
         invList=self.updateList()
         indexCounter=[]
 
-        #in case the search is a float or not
+        #check counts if the len matches original string; checking is loop for if the search is a float or not
         check=0; checking=True
         while checking:
             try:
                 for chara in query:
-                    for num in range(10):
-                        if chara in "1234567890" or chara==".":
-                            check+=1
-            
+                    #decimal in case it is "16.7" or a float with decimal
+                    if chara == ".":
+                        check+=1
+                    
+                    #checking numbers
+                    else:
+                        for num in "1234567890":
+                            if (chara == num):
+                                check+=1
+                #points == length; then all characters are available for float type
                 if(len(query)==check):
-                    float(query)
+                    query=float(query)
                 checking=False
 
             except:
