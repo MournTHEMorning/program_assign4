@@ -87,28 +87,49 @@ def run(isManager,username):
                     if(user=="E"):
                         print("Name a characteristic of the data you want to edit. (i.e. Creator, price, code, name)\nSpelling counts.")
                         query=input("Characteristic: ")
-                        times=readAccess.quickSearch(query) #number of times the query comes up; use quick search
+                        #uses quickSearch to return indexes of the lists that has the characteristic of variable query
+                        times=readAccess.quickSearch(query) 
                         #item does not exist in database
                         if (len(times)==0):
                             print("You cannot edit something that does not exist.")
+                        #item exists in database
                         elif (len(times)>=1):
+                            #if Item appears more than once
+                            if len(times)>1:
+                                print("Please write the code of the item you would like (Spelling and case counts).\nInput anything else to quit.")
+                                specific_item=input("ITEM'S UNIQUE CHARACTERISTIC: ")
+                                #returns specific code's list index in csv file in list form
+                                item_index=readAccess.quickSearch(specific_item)
+                                #get the numeric value of item's index by extracting it from list
+                                item_index=item_index[0]
+                                
+                            
                             #item appears once
-                            if len(times)==1:
+                            elif len(times)==1:
+                                item_index=times[0]
+                            
+                            #item does not exist or user quits editing
+                            else:
+                                item_index=-10
+
+                            if (item_index>=1):
                                 print("What would you like to edit?: PRICE [P] || CREATOR[C]\nInput anything else to quit")
                                 edit_quality=input("I would like to edit: ").upper()
 
-                                if edit_quality=="P" or "PRICE":
-                                    pass #edit [2]
-                                elif edit_quality=="C" or "CREATOR":
-                                    pass #edit [3]
+                                #Will change for price
+                                if (edit_quality=="P" or edit_quality=="PRICE"):
+                                    user_edit=input("Please enter your edit here: ")
+                                     #edit [2]
+                                #Will change creator
+                                elif (edit_quality=="C" or edit_quality=="CREATOR"):
+                                    user_edit=input("Please enter your edit here: ")
+                                     #edit [3]
                                 else:
-                                    print("Returning to main menu...\n",breakLine*2)
-                            
-                            #if Item appears more than once
-                            elif len(times)>1:
-                                print("Please write the code of the item you would like (Spelling and case counts).\nInput anything else to quit.")
-                                specific_item=input("CODE: ")
-                                #do stuff~
+                                    pass #which will cause user to leave
+                             
+                        #meaning user quits editing  
+                        print("Returning to main menu...\n",breakLine*2)
+
 
 
                     #menu choice - Create
